@@ -270,6 +270,15 @@ class Chess:
                     board_piece["selected"] = False
                     piece_name = board_piece["name"]
                     
+                    # --- PROMOÇÃO DO PEÃO BASEADA NA LINHA DO TABULEIRO ---
+                    if piece_name == "white_pawn" and des_row_no == 8:
+                        piece_name = "white_queen"
+                        print("Peão branco promovido a Dama!")
+                    elif piece_name == "black_pawn" and des_row_no == 1:
+                        piece_name = "black_queen"
+                        print("Peão preto promovido a Dama!")
+                    # -----------------------------------------------------
+
                     self.piece_location[des_col_char][des_row_no]["name"] = piece_name
                     board_piece["name"] = ""
 
@@ -281,7 +290,9 @@ class Chess:
                         self.turn["black"] = 1
                         self.turn["white"] = 0
 
-                    print(f"{piece_name} moved from {k}{key} to {des_col_char}{des_row_no}")
+                    src_location = k + str(key)
+                    des_location = des_col_char + str(des_row_no)
+                    print(f"{piece_name} moved from {src_location} to {des_location}")
 
     def diagonal_moves(self, positions, piece_name, piece_coord):
         directions = [(-1, -1), (1, 1), (-1, 1), (1, -1)]
